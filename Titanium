@@ -1,0 +1,24 @@
+package default                                                                         
+                                                                                        
+import scala.concurrent.duration._                                                      
+                                                                                        
+import io.gatling.core.Predef._                                                         
+import io.gatling.http.Predef._                                                         
+import io.gatling.jdbc.Predef._                                                         
+                                                                                        
+class Titanium extends Simulation {                                                     
+                                                                                        
+        val web = http                                                                  
+        .baseUrl("http://apnews-dev.appspot.com")                 
+        .acceptHeader("text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
+        .acceptLanguageHeader("en-US,en;q=0.5")                                         
+        .acceptEncodingHeader("gzip, deflate")                                          
+        .userAgentHeader("load-test")                                                   
+                                                                                        
+        val landing = scenario("Landing").exec(http("/").get("/"))                      
+                                                                                        
+        setUp(landing.inject(                                                           
+                rampUsersPerSec(0) to(100) during(1 minute),                            
+                constantUsersPerSec(100) during(5 minute) randomized                    
+        )).protocols(web);                                                              
+}                                                                                       
