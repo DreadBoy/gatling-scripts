@@ -18,7 +18,7 @@ class Titanium extends Simulation {
         val landing = scenario("Landing").exec(http("/").get("/"))                      
                                                                                         
         setUp(landing.inject(                                                           
-                rampUsersPerSec(0) to(100) during(1 minute),                            
-                constantUsersPerSec(100) during(5 minute) randomized                    
+                rampUsersPerSec(0) to(200) during(1 minute),                            
+                constantUsersPerSec(200) during(5 minute) randomized                    
         )).protocols(web);                                                              
 }                                                                                       
