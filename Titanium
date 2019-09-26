@@ -19,8 +19,8 @@ class Titanium extends Simulation {
         val content = scenario("Content").exec(http("/04ab3731edc244dc84e6ffcc9362f4a6").get("/04ab3731edc244dc84e6ffcc9362f4a6?ignore_cache"))
 
         setUp(content.inject(
-                rampUsersPerSec(0) to(10) during(60 seconds),
-                constantUsersPerSec(10) during(20 minutes) randomized
+                rampUsersPerSec(0) to(100) during(60 seconds),
+                constantUsersPerSec(100) during(20 minutes) randomized
         ))
         .protocols(web);
 }
