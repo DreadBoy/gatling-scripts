@@ -16,8 +16,9 @@ class Titanium extends Simulation {
                 .userAgentHeader("load-test")
 
         val landing = scenario("Landing").exec(http("/").get("/"))
+        val content = scenario("Content").exec(http("/04ab3731edc244dc84e6ffcc9362f4a6").get("/04ab3731edc244dc84e6ffcc9362f4a6?ignore_cache"))
 
-        setUp(landing.inject(
+        setUp(content.inject(
                 rampUsersPerSec(0) to(200) during(60 seconds),
                 constantUsersPerSec(200) during(20 minutes) randomized
         ))
